@@ -3,6 +3,14 @@
 const createListButton = document.getElementById('create-list').addEventListener('click', createList)
 const createNameListButton = document.getElementById('button-set-name-list').addEventListener('click', createNameList)
 
+//Object for to-do
+const todo = {}
+
+//Create 'add button' to add new to-do
+const AddTodoButton = document.createElement('button')
+const AddTodoButtonText = document.createTextNode('Añadir Tarea')
+AddTodoButton.appendChild(AddTodoButtonText)
+
 // Opens window
 function createList() {
     document.getElementById('creation-table').setAttribute('style', 'visibility: visible;')
@@ -10,21 +18,52 @@ function createList() {
 
 // Close window and creates new todo-list
 function createNameList() {
-    const nameList = document.getElementById('list-name').value    
-    
-    const todo = {
-        nameList: nameList
-    }
+    //Add name value to object
+    const nameList = document.getElementById('list-name').value  
+    todo.listName = nameList   
+    todo.completed = false   
 
     const newList = document.createElement('div')
-    const newH1 = document.createElement('h1')
-    const textNameList = document.createTextNode(todo.nameList)
+    const nameListH1 = document.createElement('h1')
+    const textNameList = document.createTextNode(todo.listName)
+    const todoMainContainer = document.createElement('div')
+    const todoContainer = document.createElement('div')
+    const completedBox = document.createElement('input')
+    const todoText = document.createElement('input')
 
-    newList.appendChild(newH1)
-    newH1.appendChild(textNameList)
+    completedBox.type = 'checkbox'
+    todoText.type = 'text'
+    todoMainContainer.id = 'todo-main-container'
+    
+    newList.appendChild(nameListH1)
+    nameListH1.appendChild(textNameList)
+    newList.appendChild(todoMainContainer)
+    todoMainContainer.appendChild(todoContainer)
+    todoContainer.appendChild(completedBox)
+    todoContainer.appendChild(todoText)
+    newList.append(AddTodoButton)
+
     document.body.appendChild(newList)
     
     document.getElementById('creation-table').removeAttribute('style')
+    console.log(todo)
+}
+
+AddTodoButton.addEventListener('click', addNewtodo)
+
+function addNewtodo() {
+    const todoContainer = document.createElement('div')
+    const completedBox = document.createElement('input')
+    const todoText = document.createElement('input')
+
+    completedBox.type = 'checkbox'
+    todoText.type = 'text'
+    
+    todoContainer.appendChild(completedBox)
+    todoContainer.appendChild(todoText)
+
+    const mainContainer = document.getElementById('todo-main-container')
+    mainContainer.append(todoContainer)
 }
 
 // function createNameList() {
