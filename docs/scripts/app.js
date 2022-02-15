@@ -10,12 +10,21 @@ function createList() {
 
 // Close window and creates new todo-list
 function createNameList() {
-    const nameList = document.getElementById('list-name').value
-    const ovbio = {
-        nameList: nameList,
-    }
+    const nameList = document.getElementById('list-name').value    
     
-    console.log(ovbio)
+    const todo = {
+        nameList: nameList
+    }
+
+    const newList = document.createElement('div')
+    const newH1 = document.createElement('h1')
+    const textNameList = document.createTextNode(todo.nameList)
+
+    newList.appendChild(newH1)
+    newH1.appendChild(textNameList)
+    document.body.appendChild(newList)
+    
+    document.getElementById('creation-table').removeAttribute('style')
 }
 
 // function createNameList() {
