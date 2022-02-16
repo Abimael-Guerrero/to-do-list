@@ -4,92 +4,84 @@ const createListButton = document.getElementById('create-list').addEventListener
 const createNameListButton = document.getElementById('button-set-name-list').addEventListener('click', createNameList)
 
 //Object for to-do
-const todo = {}
+const listsContainer = []
 
-//Create 'add button' to add new to-do
-const AddTodoButton = document.createElement('button')
-const AddTodoButtonText = document.createTextNode('Añadir Tarea')
-AddTodoButton.appendChild(AddTodoButtonText)
-
-// Opens window
+// Opens 'Create list' window
 function createList() {
     document.getElementById('creation-table').setAttribute('style', 'visibility: visible;')
 } 
 
 // Close window and creates new todo-list
 function createNameList() {
-    //Add name value to object
+    const list = []
+    const todo = {}
+
+    //Add name property to object
     const nameList = document.getElementById('list-name').value  
-    todo.listName = nameList   
-    todo.completed = false   
+    list.push(nameList)  
+    listsContainer.push(list) 
 
     const newList = document.createElement('div')
     const nameListH1 = document.createElement('h1')
-    const textNameList = document.createTextNode(todo.listName)
+    const textNameList = document.createTextNode(list[0])
     const todoMainContainer = document.createElement('div')
-    const todoContainer = document.createElement('div')
-    const completedBox = document.createElement('input')
-    const todoText = document.createElement('input')
+    // const todoContainer = document.createElement('div')
+    //Create 'add button' to add new to-do
+    const AddTodoButton = document.createElement('button')
+    const AddTodoButtonText = document.createTextNode('Añadir Tarea')
+    AddTodoButton.appendChild(AddTodoButtonText)
 
-    completedBox.type = 'checkbox'
-    todoText.type = 'text'
-    todoMainContainer.id = 'todo-main-container'
+    todoMainContainer.id = 'todo-main-co[ntainer'
     
     newList.appendChild(nameListH1)
     nameListH1.appendChild(textNameList)
     newList.appendChild(todoMainContainer)
-    todoMainContainer.appendChild(todoContainer)
-    todoContainer.appendChild(completedBox)
-    todoContainer.appendChild(todoText)
     newList.append(AddTodoButton)
-
-    document.body.appendChild(newList)
-    
+    document.body.append(newList)
     document.getElementById('creation-table').removeAttribute('style')
-    console.log(todo)
+
+    AddTodoButton.addEventListener('click', addNewtodo)
+    console.log(list)
+    console.log(listsContainer)
+
+    function addNewtodo() {
+        const todoContainer = document.createElement('div')
+        const completedBox = document.createElement('input')
+        const todoText = document.createElement('input')
+
+        completedBox.type = 'checkbox'
+        todoText.type = 'text'
+        todoText.setAttribute('placeholder', 'Doble click para editar')
+        
+        todoContainer.appendChild(completedBox)
+        todoContainer.appendChild(todoText)
+        todoMainContainer.append(todoContainer)
+
+        // document.getElementById('todo-main-container').append(todoContainer)
+
+        todo.completed = false
+        list.push(todo)
+
+        // if (lists[0] ) {
+        //     lists.push(todo)
+        // }
+        console.log(todo)
+        console.log(list)
+        console.log(listsContainer)
+    }
 }
 
-AddTodoButton.addEventListener('click', addNewtodo)
+// array = [
+//     array[
+//         String,
+//         Object{
 
-function addNewtodo() {
-    const todoContainer = document.createElement('div')
-    const completedBox = document.createElement('input')
-    const todoText = document.createElement('input')
+//         },
+//         Object{
 
-    completedBox.type = 'checkbox'
-    todoText.type = 'text'
-    
-    todoContainer.appendChild(completedBox)
-    todoContainer.appendChild(todoText)
-
-    const mainContainer = document.getElementById('todo-main-container')
-    mainContainer.append(todoContainer)
-}
-
-// function createNameList() {
-//     const newList = document.createElement('div')
-//     const newH1 = document.createElement('h1')
-//     const newDiv = document.createElement('div')
-//     const newCheckbox = document.createElement('input')
-//     const newTodoText = document.createElement('input')
-//     const selectText = document.getElementById('list-name').value
-//     const newListTextName = document.createTextNode(selectText)
-
-//     newDiv.setAttribute('class', 'list-name')
-//     newCheckbox.setAttribute('type', 'checkbox')
-//     newTodoText.setAttribute('type', 'text')
-
-//     if (!selectText) {
-//         alert('Necesitas poner un texto')
-//     } else {
-//         // Creates text and adds it to the element 
-//         newH1.appendChild(newListTextName)
-//         newList.appendChild(newH1)
-//         newList.appendChild(newDiv)
-//         newDiv.appendChild(newCheckbox)
-//         newDiv.appendChild(newTodoText)
-//         document.body.appendChild(newList)
-
-//         document.getElementById('creation-table').removeAttribute('style')
-//     }
-// }
+//         },
+//     ],
+//     array[],
+//     array[],
+//     array[],
+// ]
