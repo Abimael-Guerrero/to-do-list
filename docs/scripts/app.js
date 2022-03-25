@@ -1,17 +1,17 @@
-
-
 const createListButton = document.getElementById('create-list').addEventListener('click', createList)
+
 const createNameListButton = document.getElementById('button-set-name-list').addEventListener('click', createNameList)
 
-//Object for to-do
+//Main array to contain every list 
 const listsContainer = []
+
 
 // Opens 'Create list' window
 function createList() {
     document.getElementById('creation-table').setAttribute('style', 'visibility: visible;')
 } 
 
-// Close window and creates new todo-list
+// Close window and creates new list of todos
 function createNameList() {
     const list = []
     const todo = {}
@@ -25,24 +25,29 @@ function createNameList() {
     const nameListH1 = document.createElement('h1')
     const textNameList = document.createTextNode(list[0])
     const todoMainContainer = document.createElement('div')
-    // const todoContainer = document.createElement('div')
-    //Create 'add button' to add new to-do
-    const AddTodoButton = document.createElement('button')
-    const AddTodoButtonText = document.createTextNode('Añadir Tarea')
-    AddTodoButton.appendChild(AddTodoButtonText)
-
-    todoMainContainer.id = 'todo-main-co[ntainer'
     
+    // Create 'add button' to add new to-do
+    const addTodoButton = document.createElement('button')
+    addTodoButton.textContent = 'Add To-Do'
+    
+    // Create 'delete todo' to delte to-dos
+    const deleteTodoButton = document.createElement('button')
+    deleteTodoButton.textContent = 'Delete To-do'
+
     newList.appendChild(nameListH1)
     nameListH1.appendChild(textNameList)
     newList.appendChild(todoMainContainer)
-    newList.append(AddTodoButton)
+    newList.append(addTodoButton)
+    newList.appendChild(deleteTodoButton)
     document.body.append(newList)
-    document.getElementById('creation-table').removeAttribute('style')
 
-    AddTodoButton.addEventListener('click', addNewtodo)
-    console.log(list)
-    console.log(listsContainer)
+    // console.log(list)
+    // console.log(listsContainer)
+    
+    let increse = 0
+
+    // Button add to-do funcition
+    addTodoButton.addEventListener('click', addNewtodo)
 
     function addNewtodo() {
         const todoContainer = document.createElement('div')
@@ -51,37 +56,38 @@ function createNameList() {
 
         completedBox.type = 'checkbox'
         todoText.type = 'text'
-        todoText.setAttribute('placeholder', 'Doble click para editar')
+        todoText.setAttribute('placeholder', 'Escribe todo')
+        // todoText.setAttribute('id', 'todo-1')
         
-        todoContainer.appendChild(completedBox)
-        todoContainer.appendChild(todoText)
+        todoContainer.append(completedBox)
+        todoContainer.append(todoText)
         todoMainContainer.append(todoContainer)
 
-        // document.getElementById('todo-main-container').append(todoContainer)
+        increse++
+        console.log(increse)
 
-        todo.completed = false
         list.push(todo)
-
-        // if (lists[0] ) {
-        //     lists.push(todo)
-        // }
-        console.log(todo)
-        console.log(list)
+        todo.completed = false
+        todo.todoText = ''
+        // todo.id = increse
+        list[1].id = increse
+        
+        // Adds text property todo text 
+        todoText.addEventListener('focusout', function () {
+            listsContainer.find(function(e, i, a) { 
+                if (e[0] === nameList) {
+                    console.log('funciona')
+                    // console.log(todo)
+                    // console.log(list)
+                    // console.log(e[1].todoText.value)
+                    // todo.todoText = todoText.value
+                } 
+            })
+        })
+        
         console.log(listsContainer)
     }
+    
+    // Close window 
+    document.getElementById('creation-table').removeAttribute('style')
 }
-
-// array = [
-//     array[
-//         String,
-//         Object{
-
-//         },
-//         Object{
-
-//         },
-//     ],
-//     array[],
-//     array[],
-//     array[],
-// ]
